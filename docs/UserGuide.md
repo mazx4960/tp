@@ -3,10 +3,21 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+IBook is an inventory recording system for storekeepers to manage incoming and outgoing products in a store.
 
-* Table of Contents
-{:toc}
+## Table of Contents
+* [Quick start](#quick-start)
+* [Features](#features)
+  * [Viewing help](#viewing-help--help) 
+  * Products
+    * [Adding a product](#adding-a-product--add)
+    * [Listing products](#listing-products--list)
+    * [Updating products](#updating-products--update)
+    * [Deleting products](#deleting-products--delete)
+  * Categories
+  * [Exiting the program](#exiting-the-program--exit)
+ * [FAQ](#faq)
+ * [Command Summary](#command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -14,9 +25,9 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `ibook.jar` from [here](https://github.com/AY2122S2-CS2103T-T09-4/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for your iBook.
 
 1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
@@ -24,13 +35,11 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * **`list`** : Lists all contacts.
+   * **`list`** : Lists all products.
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * **`add n:Maggie c:noodles e:01/01/2022 p:3.00 d:Maggie noodles` : Adds a product named `Maggie` to iBook.
 
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
-
-   * **`clear`** : Deletes all contacts.
+   * **`delete`**`3` : Deletes the 3rd product shown in the current list.
 
    * **`exit`** : Exits the app.
 
@@ -45,19 +54,13 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 **:information_source: Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `add n:NAME`, `NAME` is a parameter which can be used as `add n:Maggie`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g `n:NAME [t:TAG]` can be used as `n:Maggie c:noodle` or as `n:Maggie`.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-
-* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
-  e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
+  e.g. if the command specifies `n:NAME c:CATEGORY`, `c:CATEGORY n:NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -73,46 +76,54 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Adding a product : `add`
 
-Adds a person to the address book.
+Adds a new product to the application.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n:NAME c:CATEGORY e:EXPRIRY_DATE p:PRICE d:DESCRIPTION`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+Only a single product would be added at a time
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n:Maggie c:noodles e:01/01/2022 p:3.00 d:Maggie noodles`
 
-### Listing all persons : `list`
+### Listing products : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all products in the application.
 
 Format: `list`
 
-### Editing a person : `edit`
+*Alternatively*, we are able to show only products that match one or more (tag, value) pairs.
 
-Edits an existing person in the address book.
+Format: `list [TAG:VALUE ...]`
+Example: `list n:Water`
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+### Updating products : `update`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+Updates the product at the specified INDEX.
+
+Format: `update INDEX | [TAG:NEW_VALUE ...]`
+
+* Updates the product at the specified `INDEX`. The index refers to the index number shown in the displayed product list. The index **must be a positive integer** 1, 2, 3, …
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* Existing values will be updated to the new values.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `update 2 | n:Apple` Edits the name of the 2nd product to be `Apple`.
 
-### Locating persons by name: `find`
+*Alternatively*, we are able to update all items that match the tag and value, and replace the respective fields with the new value.
 
-Finds persons whose names contain any of the given keywords.
+Format: `update [SEARCH_TAG:OLD_VALUE ...] | [TAG:NEW_VALUE ...]`
+
+* Updates all products that match the (tag, value) pair.
+* Must include at least one search_tag and one tag
+* Existing values will be updated to the new values.
+
+### Finding products: `[coming soon]`
+
+Finds products whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -128,25 +139,27 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Deleting products : `delete`
 
-Deletes the specified person from the address book.
+Deletes the product at a specified INDEX.
 
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* Deletes the product at the specified `INDEX`.
+* The index refers to the index number shown in the displayed product list.
+* The index **must be a positive integer** 1, 2, 3, …
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd product in the iBook.
 
-### Clearing all entries : `clear`
+*Alternatively*, we are able to delete all items that match one or more (tag, value) pairs.
 
-Clears all entries from the address book.
+Format: `delete [TAG:VALUE ...]`
 
-Format: `clear`
+* Deletes all products that match the (tag, value) pair.
+* Must include at least one (tag, value) pair.
+
+Example: `delete n:Bread`
 
 ### Exiting the program : `exit`
 
@@ -156,14 +169,14 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+iBook's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+iBook's data are saved as a JSON file `[JAR file location]/data/ibook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
+If your changes to the data file makes its format invalid, iBook will discard all data and start with an empty data file at the next run.
 </div>
 
 ### Archiving data files `[coming in v2.0]`
@@ -175,18 +188,16 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous iBook home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
-**Help** | `help`
+ Action     | Format, Examples
+------------|------------------
+ **Add**    | `add n:NAME c:CATEGORY e:EXPRIRY_DATE p:PRICE d:DESCRIPTION` <br> e.g., `add n:Maggie c:noodles e:01/01/2022 p:3.00 d:Maggie noodles`
+ **List**   | `list`
+ **Update** | `update INDEX [TAG:NEW_VALUE ...]` <br> e.g.,`update 2 n:Apple`
+ **Delete** | `delete INDEX`<br> e.g., `delete 3`
+ **Help**   | `help`
