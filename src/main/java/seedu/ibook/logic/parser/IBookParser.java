@@ -39,6 +39,7 @@ public class IBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -51,7 +52,7 @@ public class IBookParser {
             return new UpdateCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            if (arguments == null) {
+            if (arguments.isEmpty()) {
                 return new ListCommand();
             } else {
                 return new FindCommandParser().parse(arguments);

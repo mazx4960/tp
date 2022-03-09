@@ -3,7 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox style="-fx-background-color: ffffff; -fx-background-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 18, 0, 0, 5); -fx-background-insets: 15  20 20 20;" VBox.vgrow="ALWAYS">
+<VBox style="-fx-background-color: ffffff; -fx-background-radius: 12;
+        -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 18, 0, 0, 5);
+        -fx-background-insets: 15 20 20 20;" VBox.vgrow="ALWAYS">
     <padding>
         <Insets bottom="40.0" left="40.0" right="40.0" top="30.0" />
     </padding>

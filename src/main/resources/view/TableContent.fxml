@@ -3,6 +3,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
-    <VBox style="-fx-background-color: #ffffff;"/>
+<ScrollPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent;"
+            VBox.vgrow="ALWAYS">
+    <VBox fx:id="content" style="-fx-background-color: #ffffff;"/>
 </ScrollPane>

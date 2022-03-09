@@ -5,12 +5,18 @@ import static seedu.ibook.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Product's price in the ibook.
- * Guarantees: immutable; is valid as declared in {@link #isValidPrice(Double)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
  */
 public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Prices should only be of type double, and should not be negative";
+
+    /*
+     * The first character of the name must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String VALIDATION_REGEX = "\\d+(?:.\\d{1,2})?";
 
     public final Double price;
 
@@ -19,18 +25,19 @@ public class Price {
      *
      * @param price A valid price.
      */
-    public Price(Double price) {
+    public Price(String price) {
         requireNonNull(price);
         checkArgument(isValidPrice(price), MESSAGE_CONSTRAINTS);
-        this.price = price;
+        this.price = Double.parseDouble(price);
     }
 
     /**
      * Returns true if a given string is a valid price.
      */
-    public static boolean isValidPrice(Double test) {
-        return test >= 0;
+    public static boolean isValidPrice(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
+
 
     @Override
     public String toString() {

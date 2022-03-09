@@ -2,7 +2,6 @@ package seedu.ibook.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import seedu.ibook.commons.core.index.Index;
@@ -88,11 +87,10 @@ public class ParserUtil {
     public static ExpiryDate parseExpiryDate(String expiryDate) throws ParseException {
         requireNonNull(expiryDate);
         try {
-            LocalDate parsedExpiryDate = LocalDate.parse(expiryDate);
-            if (!ExpiryDate.isValidExpiryDate(parsedExpiryDate)) {
+            if (!ExpiryDate.isValidExpiryDate(expiryDate)) {
                 throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
             }
-            return new ExpiryDate(parsedExpiryDate);
+            return new ExpiryDate(expiryDate);
         } catch (DateTimeParseException e) {
             throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
         }
@@ -108,11 +106,10 @@ public class ParserUtil {
     public static Price parsePrice(String price) throws ParseException {
         requireNonNull(price);
         try {
-            Double parsedPrice = Double.parseDouble(price);
-            if (!Price.isValidPrice(parsedPrice)) {
+            if (!Price.isValidPrice(price)) {
                 throw new ParseException(Price.MESSAGE_CONSTRAINTS);
             }
-            return new Price(parsedPrice);
+            return new Price(price);
         } catch (NumberFormatException e) {
             throw new ParseException(Price.MESSAGE_CONSTRAINTS);
         }

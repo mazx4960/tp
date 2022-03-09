@@ -76,7 +76,7 @@ public class MainWindow extends UiPart<Stage> {
         resultWindow = new ResultWindow();
         children.add(resultWindow.getRoot());
 
-        table = new Table();
+        table = new Table(logic.getFilteredIBook());
         children.add(table.getRoot());
     }
 
